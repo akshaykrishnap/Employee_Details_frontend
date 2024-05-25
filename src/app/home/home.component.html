@@ -1,0 +1,94 @@
+<app-header></app-header>
+
+<div class="d-flex">
+
+    <!-- sidebar -->
+    <div *ngIf="showsSideBar" class="d-flex align-items-center flex-column"
+        style="background-image: linear-gradient(to right, rgb(0, 179, 249),skyblue); height: 90vh; width: 260px;">
+        <a routerLink="/dashboard" style="text-decoration: none;" class="text-light mt-5 fs-5">
+            Dashboard
+        </a><br>
+
+        <a routerLink="/employee" style="text-decoration: none;" class="text-light mt-5 fs-5">
+            Employee
+        </a>
+    </div>
+
+    <!-- row 1 -->
+    <div class="row p-3 w-100">
+
+        <div class="col-md-8">
+
+            <!-- row 2 -->
+            <div class="row w-100">
+
+                <div style=" color: white;background-color: rgb(122, 102, 255); height: 150px;"
+                    class=" d-flex align-items-center col-md-12 w-100 rounded p-3">
+                    <h4><i (click)="handlesideBar()" class="fa-solid fa-bars me-3"></i>Welcome {{adminDetails.username}}</h4>
+                </div>
+
+            </div>
+            <!-- calender & piechart -->
+            <div class="row mt-4 w-100">
+                <div class="col-md-5">
+                    <p style="text-align: center;">Calender</p>
+                    <mat-card style="background-color: rgb(0, 213, 255);" class="demo-inline-calendar-card">
+                        <mat-calendar [(selected)]="selected"></mat-calendar>
+                    </mat-card>
+                </div>
+
+                <!-- Piechart -->
+                <div class="col-md-7 shadow">
+                    <p style="text-align: center;">Pie Chart</p>
+                    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
+                        style="width: 100%; height: 400px; display: block;"></highcharts-chart>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- col 3  -->
+        <div class="col-md-4 p-3">
+            <!-- profile -->
+            <div class="rounded justify-content-center align-items-center flex-column d-flex"
+                style="height: 440px;  color: white;background-color: rgb(114, 196, 255);">
+
+               <div class="rounded justify-content-center align-items-center flex-column d-flex" *ngIf="!adminStatus">
+                 <img  [src]="profileImg"
+                     style=" height: 150px; width: 150px;" alt="" class="rounded">
+                 <button (click)="editStatus()" class="btn btn-outline-light" style="font-weight: bold; font-size: 20px;"><i
+                         class="fa-solid fa-pen-nib"></i> Edit the Admin Profile</button>
+               </div>
+
+                <div *ngIf="adminStatus" class="rounded justify-content-center align-items-center flex-column d-flex"
+                    style="height: 440px;  color: white;background-color: rgb(114, 196, 255);">
+
+                    <label class="mt-3">
+                        <img [src]="profileImg"
+                            style=" height: 120px; width: 120px;" alt="" class="rounded">
+                        <input (change)="getFile($event)" type="file" style="display: none;">
+                    </label>
+                    <input [(ngModel)]="adminDetails.username" class="form-control mt-4" type="text" placeholder="Admin Name">
+                    <input [(ngModel)]="adminDetails.password" class="form-control mt-3" type="text" placeholder="Admin Password">
+                    <div class=" mt-2 ">
+                        <button (click)="cancel()" class="btn btn-outline-danger ms-3">Cancel</button>
+                        <button (click)="updateAdmin()" class="btn btn-outline-warning ms-3">Update</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- employee counts -->
+            <div style=" height: 165px; color: white;background-color: rgb(255, 149, 0);"
+                class="d-flex mt-4 justify-content-center align-items-center rounded">
+                <h4 style="font-weight: bold;" class="fs-3"> <i class="fa-solid fa-users"></i> Employee Count:{{employeeCount}}</h4>
+            </div>
+
+        </div>
+
+    </div>
+</div>

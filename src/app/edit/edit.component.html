@@ -1,0 +1,52 @@
+<app-header></app-header>
+
+<div class="d-flex">
+
+    <!-- Sidebar -->
+    <div class="d-flex align-items-center flex-column"
+        style="background-image: linear-gradient(to right, rgb(0, 179, 249),skyblue); height: 90vh; width: 260px;">
+        <a routerLink="/dashboard" style="text-decoration: none;" class="text-light mt-5 fs-5">
+            Dashboard
+        </a><br>
+
+        <a routerLink="/employee" style="text-decoration: none;" class="text-light mt-5 fs-5">
+            Employee
+        </a>
+    </div>
+    <!-- Update Card -->
+    <div class=" w-100 m-5 p-5">
+        <h2 style="text-align: center;"> Update User Details</h2>
+        <div class="rounded shadow border">
+            <div class="d-flex ms-2 mt-2">
+                <label for="">User ID</label>
+                <input pattern="[0-9]*" required #empId="ngModel" type="text" [(ngModel)]="Employee.id" class="form-control ms-2 w-75" placeholder="Eg.abc">
+                <span *ngIf="empId.invalid && empId.touched" class="text-danger">*Invalid Input</span>
+            </div>
+            <div class="d-flex ms-2 mt-2">
+                <label for="">User Name</label>
+                <input #empName="ngModel" type="text" [(ngModel)]="Employee.username"  class="form-control ms-2 w-75"  required
+                pattern="^[a-zA-Z]{3,}$" placeholder="Eg.Max">
+                <span *ngIf="empName.invalid && empName.touched" class="text-danger">*Invalid Input</span>
+            </div>
+            <div class="d-flex ms-2 mt-2">
+                <label for="">Email</label>
+                <input #empEmail="ngModel" type="text" [(ngModel)]="Employee.email"  class="form-control ms-2 w-75" required
+                email placeholder="Eg.abc@gmail.com">
+                <span *ngIf="empEmail.invalid && empEmail.touched" class="text-danger">*Invalid Input</span>
+            </div>
+            <div class="d-flex   m-2">
+                <label for="">Status</label>
+                <select #empStatus="ngModel" class="form-select ms-2 w-75" [(ngModel)]="Employee.status" required placeholder="Active/Inactive">
+                    <option value="1">Active</option>
+                    <option value="2">Inactive</option>
+                </select>
+                <span *ngIf="empStatus.invalid && empStatus.touched" class="text-danger">*Invalid Input</span>
+            </div>
+
+            <div class="d-flex justify-content-center m-2">
+                <button class="btn btn-warning ms-2">Cancel</button>
+                <button (click)="updateEmployee(Employee.id)" class="btn btn-success ms-2">Update</button>
+            </div>
+        </div>
+    </div>
+</div>

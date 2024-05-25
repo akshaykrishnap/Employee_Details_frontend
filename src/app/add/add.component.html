@@ -1,0 +1,60 @@
+<app-header></app-header>
+
+<div class="d-flex">
+
+    <!-- Side Bar -->
+    <div class="d-flex align-items-center flex-column"
+        style="background-image: linear-gradient(to right, rgb(0, 179, 249),skyblue); height: 90vh; width: 260px;">
+        <a routerLink="/dashboard" style="text-decoration: none;" class="text-light mt-5 fs-5">
+            Dashboard
+        </a><br>
+
+        <a routerLink="/employee" style="text-decoration: none;" class="text-light mt-5 fs-5">
+            Employee
+        </a>
+    </div>
+
+    <!-- Add Card -->
+    <div class=" w-100 m-5 p-5">
+        <h2 style="text-align: center;">Add New User Details</h2>
+        <form (ngSubmit)="addEmployee()">
+            <div class="rounded shadow border">
+                <div class="d-flex ms-2 mt-2">
+                    <label for="">User ID</label>
+                    <input #employeeId="ngModel" type="text" name="id" class="form-control ms-2 w-75" [(ngModel)]="employee.id" required
+                        pattern="[0-9]*" placeholder="Eg.abc">
+                        <br><span *ngIf="employeeId.invalid && employeeId.touched" class="text-danger">*Invalid Input</span>
+                </div>
+                <div class="d-flex ms-2 mt-2">
+                    <label for="">User Name</label>
+                    <input type="text" #empName="ngModel" name="uname" class="form-control ms-2 w-75" [(ngModel)]="employee.username" required
+                        pattern="^[a-zA-Z]{3,}$" placeholder="Eg.Max">
+                        <br><span *ngIf="empName.invalid && empName.touched" class="text-danger">*Invalid Input</span>
+                </div>
+                <div class="d-flex ms-2 mt-2">
+                    <label for="">Email</label>
+                    <input #empMail="ngModel" type="text" name="mail" class="form-control ms-2 w-75" [(ngModel)]="employee.email" required
+                        email placeholder="Eg.abc@gmail.com">
+                        <br><span *ngIf="empMail.invalid && empMail.touched" class="text-danger">*Invalid Input</span>
+                </div>
+                <div class="d-flex   m-2">
+                    <label for="">Status</label>
+                    <select #empStatus="ngModel" class="form-select ms-2 w-75" name="status" [(ngModel)]="employee.status" required
+                        placeholder="Active/Inactive">
+                        <option value=""></option>
+                        <option value="1">Active</option>
+                        <option value="0">Inactive</option>
+                    </select>
+            
+                    <br><span *ngIf="empStatus.invalid && empStatus.touched" class="text-danger">*Invalid Input</span>
+                </div>
+            
+                <div class="d-flex justify-content-center m-2">
+                    <button (click)="cancelEmployee()" class="btn btn-warning ms-2">Cancel</button>
+                    <button class="btn btn-success ms-2">Add</button>
+                </div>
+            
+            </div>
+        </form>
+    </div>
+</div>

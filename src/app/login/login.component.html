@@ -1,0 +1,29 @@
+<app-header></app-header>
+
+<div class=" row d-flex justify-content-center align-items-center" style="height: 80vh; width: 100%;">
+
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4 p-3">
+        <form (ngSubmit)="login()"
+            style="background-image: linear-gradient(to right, rgb(24, 178, 234),rgb(174, 243, 248));"
+            class="border p-4 rounded shadow" action="">
+            <h2 class="text-center text-primary mb-4">Login Form</h2>
+            <div class=" mb-4">
+                <input name="loginMail" [(ngModel)]="logInEmail" email required #loginMail="ngModel" class="form-control"
+                    placeholder="Enter Email"  type="text">
+                <span *ngIf="loginMail.invalid && loginMail.touched" class="text-danger">Invalid Input</span>
+            </div>
+            <div class=" mb-2">
+                <input name="loginPswd" [(ngModel)]="logInPswd" required #logPd="ngModel" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,}$" class="form-control"
+                    placeholder="Enter Password" type="password">
+                <span *ngIf="logPd.invalid && logPd.touched" class="text-danger">Invalid Input</span>
+            </div>
+            <div class="mb-3">
+                <button style="background-color: navy;color: white;" type="submit" class="btn  w-100 ">Login</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-4"></div>
+</div>

@@ -1,0 +1,94 @@
+<app-header></app-header>
+
+<div class="d-flex">
+
+    <!-- Sidebar -->
+    <div class="d-flex align-items-center flex-column"
+        style="background-image: linear-gradient(to right, rgb(0, 179, 249),skyblue); height: 90vh; width: 260px;">
+        <a routerLink="/dashboard" style="text-decoration: none;" class="text-light mt-5 fs-5">
+            Dashboard
+        </a><br>
+
+        <a routerLink="/employee" style="text-decoration: none;" class="text-light mt-5 fs-5">
+            Employee
+        </a>
+    </div>
+
+    <div class=" p-4 w-100">
+        <!-- employee List -->
+        <div class="d-flex">
+            <h3 style="color: rgb(0, 30, 255);font-weight: bold;">Employee List</h3>
+            <button routerLink="/add" class="btn btn-outline-info ms-auto"><i
+                    class="fa-solid fa-user-plus me-2"></i>Add</button>
+        </div>
+
+
+        <!-- date -->
+        <h3 style="color: blue;font-weight:500;" class="mt-2">{{adminTime | date:'medium'}}</h3>
+
+        <!-- row 1 -->
+        <div class="d-flex">
+            <!-- input -->
+            <input [(ngModel)]="searchKey" type="text" placeholder="Username" class="form-control w-25">
+
+            <!-- Dropdown button -->
+            <div class="btn-group ms-3" role="group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Sort
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" (click)="sortId()">By ID</a></li>
+                    <li><a class="dropdown-item" (click)="sortName()">By Name</a></li>
+                </ul>
+            </div>
+
+            <!-- export button -->
+            <button (click)="generatePDf()" class="btn btn-success ms-auto">Export</button>
+
+        </div>
+
+        <!-- Table -->
+        <div class="row w-100">
+            <div class="col-md-1"></div>
+
+
+            <div class="col-md-10 mt-5 rounded">
+                <table class="table  shadow rounded">
+                    <thead>
+                        <tr>
+                            <th class="p-4 bg-info">User ID</th>
+                            <th class="p-4 bg-info">Username</th>
+                            <th class="p-4 bg-info">Email</th>
+                            <th class="p-4 bg-info">Status</th>
+                            <th class="p-4 bg-info">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let employee of allEmployees | search:searchKey | paginate:{ itemsPerPage: 5, currentPage: p }" [hidden]="employee.id=='0' ">
+                            <th class="">{{employee.id}}</th>
+                            <th class="">{{employee.username}}</th>
+                            <th class="">{{employee.email}}</th>
+                            <th class=""><button [ngClass]="employee.status=='1'?'btn btn-success':'btn btn-info' "
+                                    class="btn btn-success">{{employee.status=='1'?'Active':'Inactive'}}</button></th>
+                            <th class="d-flex justify-content-evenly">
+                                <button routerLink="/edit/{{employee.id}}" class="btn btn-outline-warning"><i
+                                        class="fa-solid fa-pen"></i></button>
+                                <button (click)="deleteEmployee(employee.id)" class="btn btn-outline-danger"><i
+                                        class="fa-solid fa-trash"></i></button>
+                            </th>
+                        </tr>
+                        <tr *ngIf="(allEmployees | search:searchKey).length==0">
+                            <p class="text-danger">User does not exist</p>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
